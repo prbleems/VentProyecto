@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}{{ object.name }}{% endblock %}
+
+{% block content %}
+  <div class="sup-product-detail">
+    <!-- Imagen -->
+    <div class="sup-detail-img">
+      {% if object.images.first %}
+        <img src="{{ object.images.first.image.url }}" alt="{{ object.name }}">
+      {% endif %}
+    </div>
+
+    <!-- Información -->
+    <div class="sup-detail-info">
+      <h1 class="sup-detail-title">{{ object.name }}</h1>
+      <p class="sup-detail-desc">{{ object.description }}</p>
+      <div class="sup-detail-price">${{ object.price|floatformat:0 }}</div>
+
+      <!-- Formulario de cantidad + agregar -->
+      <form action="{% url 'cart:cart_add' object.id %}" method="post" class="sup-detail-form">
+        {% csrf_token %}
+        <input type="number"
+               name="cantidad"
+               value="1"
+               min="1"
+               class="sup-quantity-input">
+        <button type="submit" class="sup-add-btn">Agregar al carrito</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

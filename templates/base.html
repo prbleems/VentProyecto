@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vent</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{% static 'css/supreme.css' %}">
+</head>
+<body>
+  <header class="sup-header">
+    <!-- logo en contenedor absoluto -->
+    <div class="sup-logo-container">
+      <a href="{% url 'catalog:product_list' %}">
+        <img src="{% static 'images/logo.gif' %}" alt="Vent" class="sup-logo-gif">
+      </a>
+    </div>
+    <nav class="sup-nav">
+      <a href="{% url 'catalog:product_list' %}">SHOP</a>
+      <a href="{% url 'cart:cart_detail' %}">CART</a>
+      {% if user.is_authenticated %}
+      <form action="{% url 'users:logout' %}" method="post" class="sup-nav">
+        {% csrf_token %}
+        <button type="submit" class="sup-nav-btn">LOGOUT</button>
+      </form>
+      {% else %}
+        <a href="{% url 'users:login' %}">LOGIN</a>
+        <a href="{% url 'users:signup' %}">SIGNUP</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main class="sup-container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="sup-footer">
+    <div class="sup-footer-content">
+      <span>© Vent {{ now|date:"Y" }}</span>
+      <nav class="sup-footer-nav">
+        <a href="https://facebook.com" target="_blank">Facebook</a>
+        <a href="https://instagram.com" target="_blank">Instagram</a>
+        <a href="https://twitter.com" target="_blank">Twitter</a>
+      </nav>
+    </div>
+  </footer>
+  
+</body>
+</html>

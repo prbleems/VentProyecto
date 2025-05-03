@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Tu Carrito{% endblock %}
+
+{% block content %}
+<h1 class="sup-title">Tu Carrito</h1>
+
+{% if cart_items %}
+  <div class="sup-cart-grid">
+    {% for item in cart_items %}
+      <div class="sup-cart-item">
+        {% if item.product.images.first %}
+          <img src="{{ item.product.images.first.image.url }}"
+               alt="{{ item.product.name }}"
+               class="sup-cart-img">
+        {% endif %}
+        <div class="sup-cart-info">
+          <h5 class="sup-cart-name">{{ item.product.name }}</h5>
+          <div class="sup-cart-qty">
+            <a href="{% url 'cart:cart_decrement' item.product.id %}" class="sup-decr-btn">–</a>
+            <span class="sup-qty">{{ item.quantity }}</span>
+            <a href="{% url 'cart:cart_add' item.product.id %}" class="sup-incr-btn">+</a>
+          </div>
+          <div class="sup-cart-meta">Subtotal: ${{ item.subtotal|floatformat:0 }}</div>
+          <a href="{% url 'cart:cart_remove' item.product.id %}"
+             class="sup-remove-link">Quitar</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="sup-cart-footer">
+    <span class="sup-cart-total">Total: ${{ total|floatformat:0 }}</span>
+    <a href="{% url 'orders:order_checkout' %}" class="sup-button">Finalizar Compra</a>
+  </div>
+
+{% else %}
+  <p>No tienes ningún producto en tu carrito.</p>
+{% endif %}
+{% endblock %}

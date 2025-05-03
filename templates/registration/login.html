@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Iniciar sesión{% endblock %}
+
+{% block content %}
+<main class="sup-container">
+  <h1 class="sup-title">Iniciar sesión</h1>
+  <div class="sup-form-wrapper">
+    <form method="post" class="sup-form">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      <div class="sup-form-group">
+        {{ form.username.label_tag }}
+        {{ form.username }}
+        {{ form.username.errors }}
+      </div>
+      <div class="sup-form-group">
+        {{ form.password.label_tag }}
+        {{ form.password }}
+        {{ form.password.errors }}
+      </div>
+      <button type="submit" class="sup-button sup-fullwidth">Entrar</button>
+    </form>
+  </div>
+</main>
+{% endblock %}

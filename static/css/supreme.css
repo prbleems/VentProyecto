@@ -1,0 +1,362 @@
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.sup-container {
+  flex: 1;
+}
+
+.sup-footer {
+  flex-shrink: 0;
+}
+
+/* 1) Import font */
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+/* 2) Color variables */
+:root {
+  --red: #e60012;
+  --black: #000;
+  --white: #fff;
+  --gray-light: #eee;
+}
+
+/* 3) Reset & box-sizing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 4) Body base */
+body {
+  font-family: 'Anton', sans-serif;
+  background: var(--white);
+  color: var(--black);
+}
+
+/* 5) Header & logo (compacta) */
+.sup-header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 2rem;    /* menos espacio vertical */
+  background: var(--red);
+  color: var(--white);
+}
+.sup-logo {
+  font-size: 2rem;          /* logo un poco más pequeño */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-decoration: none;
+  color: currentColor;
+}
+
+/* 6) Nav links (más compactos) */
+.sup-nav a {
+  margin-left: 1.5rem;      /* menos separación */
+  font-size: 0.8rem;        /* tamaño de fuente reducido */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: currentColor;
+  position: relative;
+  text-decoration: none;
+  transition: color .2s;
+}
+.sup-nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform .3s;
+}
+.sup-nav a:hover {
+  color: var(--white);
+}
+.sup-nav a:hover::after {
+  transform: scaleX(1);
+}
+
+/* 7) Logout button styled like a link (compacto) */
+.sup-nav-btn {
+  background: none;
+  border: none;
+  margin-left: 1.5rem;      /* igual separación que los enlaces */
+  padding: 0;
+  font: inherit;
+  font-size: 0.8rem;        /* igual que los enlaces */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: currentColor;
+  cursor: pointer;
+  transition: color .2s;
+  appearance: none;
+}
+.sup-nav-btn:hover {
+  color: var(--white);
+}
+
+
+/* 8) Main container with generous breathing room */
+.sup-container {
+  max-width: 1200px;
+  margin: 4rem auto;
+  padding: 0 2rem;
+}
+
+/* 9) Product grid (simple, even spacing) */
+.sup-product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 3rem;
+  margin-top: 3rem;
+}
+
+/* 10) Product card */
+.sup-product-card {
+  text-align: center;
+  padding: 1rem;
+}
+.sup-product-card img {
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  transition: transform .3s;
+}
+.sup-product-card img:hover {
+  transform: translateY(-5%);
+}
+.sup-product-card .title {
+  margin: 1rem 0 0.5rem;
+  font-size: 1.2rem;
+}
+.sup-product-card .price {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* 11) “Add to cart” button (thick border) */
+.sup-button {
+  display: inline-block;
+  padding: 0.7rem 1.5rem;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  border: 3px solid currentColor;
+  background: transparent;
+  color: currentColor;
+  text-decoration: none;
+  transition: background .2s, color .2s, border-color .2s;
+  margin-top: 1rem;
+}
+.sup-button:hover {
+  background: currentColor;
+  color: var(--white);
+  border-color: var(--white);
+}
+
+/* 12) Pagination */
+.sup-pagination {
+  display: flex;
+  justify-content: center;
+  margin: 3rem 0;
+}
+.sup-page-link,
+.sup-page-current {
+  margin: 0 1rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.sup-page-link {
+  color: var(--black);
+  text-decoration: none;
+  transition: color .2s;
+}
+.sup-page-link:hover {
+  color: var(--red);
+}
+
+/* 13) Product detail */
+.sup-product-detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin-top: 4rem;
+}
+.sup-detail-img img {
+  width: 100%;
+  height: auto;
+  transition: transform .3s;
+}
+.sup-detail-img img:hover {
+  transform: translateY(-5%);
+}
+.sup-detail-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.sup-detail-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+.sup-detail-desc {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+.sup-detail-price {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* 14) Cart layout */
+.sup-cart-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 3rem;
+  margin-top: 3rem;
+}
+.sup-cart-item {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--gray-light);
+  padding: 1rem;
+}
+.sup-cart-img {
+  width: 80px;
+  margin-right: 1rem;
+}
+.sup-cart-info {
+  flex: 1;
+}
+.sup-cart-name {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+.sup-cart-meta {
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+}
+.sup-remove-link {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--black);
+  text-decoration: none;
+  border-bottom: 1px solid var(--black);
+  transition: color .2s;
+}
+.sup-remove-link:hover {
+  color: var(--red);
+}
+
+/* 15) Footer with alternating blocks */
+.sup-footer {
+  background: var(--red);
+  color: var(--white);
+  text-align: center;
+  padding: 2rem;
+}
+.sup-footer.sup-block--white { background: var(--white); color: var(--black); }
+.sup-footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.sup-footer-nav a {
+  margin: 0 1rem;
+  text-decoration: none;
+  color: currentColor;
+  transition: color .2s;
+}
+.sup-footer-nav a:hover {
+  color: var(--red);
+}
+/* — Formulario “pro” Supreme — */
+
+/* Tarjeta del formulario */
+.sup-form-wrapper {
+  max-width: 400px;
+  margin: 3rem auto;
+  padding: 2.5rem;
+  background: var(--white);
+  border: 2px solid var(--black);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
+
+/* Título del formulario */
+.sup-title {
+  font-size: 2rem;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Grupo de inputs */
+.sup-form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.2rem;
+}
+.sup-form-group label {
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+/* Inputs estilizados */
+.sup-form-group input {
+  padding: 0.6rem 1rem;
+  font-family: 'Anton', sans-serif;
+  font-size: 0.9rem;
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.sup-form-group input::placeholder {
+  color: #666;
+  opacity: 1;
+}
+.sup-form-group input:focus {
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px rgba(230,0,18,0.15);
+}
+
+/* Botón full-width */
+.sup-button.sup-fullwidth {
+  width: 100%;
+  padding: 0.8rem 0;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  border-radius: 4px;
+  margin-top: 1.5rem;
+}
+
+/* Adaptación móvil */
+@media (max-width: 500px) {
+  .sup-form-wrapper {
+    margin: 2rem 1rem;
+    padding: 1.5rem;
+  }
+  .sup-button.sup-fullwidth {
+    padding: 0.7rem 0;
+  }
+}

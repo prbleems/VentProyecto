@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Pedido Creado{% endblock %}
+{% block content %}
+<div class="text-center">
+  <h1>¡Gracias por tu compra!</h1>
+  <p>Tu pedido <strong>#{{ order.id }}</strong> ha sido registrado.</p>
+  <p><strong>Total:</strong> ${{ order.total }}</p>
+  <a href="{% url 'catalog:product_list' %}" class="btn btn-primary mt-3">
+    Seguir comprando
+  </a>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Catálogo{% endblock %}
+{% block content %}
+<h1 class="mb-4">Catálogo de Productos</h1>
+{% if object_list %}
+  <div class="sup-product-grid">
+    {% for product in object_list %}
+      <div class="sup-product-card">
+        <a href="{{ product.get_absolute_url }}">
+          {% if product.images.first %}
+            <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}">
+          {% endif %}
+        </a>
+        <h3 class="title">{{ product.name }}</h3>
+        <div class="price">${{ product.price|floatformat:0 }}</div>
+        <!-- Aquí corregimos el namespace y el name de la URL -->
+        <a href="{% url 'cart:cart_add' product.id %}" class="sup-button">Agregar al carrito</a>
+      </div>
+    {% endfor %}
+  </div>
+  {% if is_paginated %}
+    <nav class="sup-pagination">
+      {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="sup-page-link">« Anterior</a>
+      {% endif %}
+      <span class="sup-page-current">
+        Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+      </span>
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="sup-page-link">Siguiente »</a>
+      {% endif %}
+    </nav>
+  {% endif %}
+{% else %}
+  <p>No hay productos disponibles.</p>
+{% endif %}
+{% endblock %}

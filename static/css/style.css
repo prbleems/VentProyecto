@@ -1,0 +1,11 @@
+body {
+    padding-top: 70px;
+  }
+  .products-grid {
+    gap: 1.5rem;
+  }
+  .product-card img {
+    object-fit: cover;
+    height: 200px;
+  }
+  

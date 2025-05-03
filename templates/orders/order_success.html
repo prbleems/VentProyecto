@@ -1,0 +1,11 @@
+<!-- templates/orders/order_success.html -->
+{% extends "base.html" %}
+{% block title %}Pago exitoso{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <h1 class="text-success">¡Gracias por tu compra!</h1>
+  <p>Tu pedido <strong>#{{ order.id }}</strong> fue registrado.</p>
+  <p>Total: ${{ order.total }}</p>
+  <a href="{% url 'catalog:product_list' %}" class="btn btn-primary">Seguir comprando</a>
+</div>
+{% endblock %}

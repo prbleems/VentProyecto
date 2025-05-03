@@ -1,0 +1,11 @@
+<!-- templates/orders/order_failed.html -->
+{% extends "base.html" %}
+{% block title %}Pago fallido{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <h1 class="text-danger">Pago rechazado</h1>
+  <p>Detalle:</p>
+  <pre>{{ result }}</pre>
+  <a href="{% url 'catalog:product_list' %}" class="btn btn-primary">Volver al catálogo</a>
+</div>
+{% endblock %}
