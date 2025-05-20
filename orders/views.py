@@ -1,20 +1,21 @@
-# orders/views.py
-
 import uuid
 from django.shortcuts      import render, redirect, get_object_or_404
+from django.http          import HttpResponse
+from django.views.decorators.http import require_http_methods
 from django.conf           import settings
 from transbank.webpay.webpay_plus.transaction import Transaction
 from cart.views            import CART_SESSION_ID
 from catalog.models        import Product
 from .models               import Order, OrderItem
 
-
 def order_checkout(request):
+    if request.method == 'GET':
+        return HttpResponse(status=503)
+
     cart = request.session.get(CART_SESSION_ID, {})
     if not cart:
         return redirect('catalog:product_list')
 
-    # Calcula monto en centavos (precio * qty)
     amount = sum(
         int(Product.objects.get(pk=pid).price) * qty
         for pid, qty in cart.items()
@@ -80,3 +81,10 @@ def order_finish(request):
         'order': order,
         'tbk':   result
     })
+
+def payment(request):
+    """
+    Punto de entrada para probar la indisponibilidad del endpoint de pago.
+    Siempre devuelve 503, sin importar el método.
+    """
+    return HttpResponse(status=503)
