@@ -1,0 +1,9 @@
+Django>=4.2,<5.0
+requests>=2.20.0
+transbank-sdk>=6.0.0
+pytz
+sqlparse
+gunicorn 
+whitenoise
+Pillow  
+python-dotenv  

@@ -1,14 +1,22 @@
-from django.test import TestCase, override_settings
+from django.test import TestCase
 from django.urls import reverse
-
-class CoreTests(TestCase):
-    def test_something(self):
-        self.assertTrue(True)
-
+from catalog.models import Category, Product
 
 class PaymentTests(TestCase):
-    @override_settings(TRANSBANK_COMMERCE_CODE=None)
-    def test_payment_endpoint_unavailable(self):
-        url = reverse('orders:payment')  # ajusta según tu URL
-        response = self.client.post(url, {'order_id':123})
-        self.assertEqual(response.status_code, 503)  # suponiendo que devuelves 503
+    def setUp(self):
+        self.cat = Category.objects.create(name='Dummy', slug='dummy')
+        self.prod = Product.objects.create(category=self.cat, name='Prod1', slug='prod1', price=1000)
+
+    def test_checkout_redirects_to_webpay(self):
+        session = self.client.session
+        session['cart'] = {str(self.prod.id): 2}
+        session.save()
+        response = self.client.post(reverse('orders:order_checkout'))
+        self.assertEqual(response.status_code, 302)
+        self.assertIn('token_ws=', response.url)
+        print("PaymentTests.test_checkout_redirects_to_webpay: Redirección a Webpay exitosa")
+
+    def test_finish_without_token(self):
+        response = self.client.get(reverse('orders:order_finish'))
+        self.assertEqual(response.status_code, 302)
+        print("PaymentTests.test_finish_without_token: Redirección por falta de token_ws correcta")
